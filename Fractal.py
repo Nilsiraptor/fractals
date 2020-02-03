@@ -1,6 +1,7 @@
 import sys, pygame, colorsys
 import numpy as np
 from time import perf_counter as time
+import json
 
 def f(x):
     return 1/(1+np.exp(-x))
@@ -128,6 +129,12 @@ while True:
 
                 calc = False
                 mouse_down = False
+        elif event.type == pygame.KEYDOWN:
+            if event.unicode == "s":
+                json_data = {"x_lim": x_lim, "y_lim": y_lim}
+                print(type(json_data))
+                with open("save.json", "w+") as file:
+                    json.dump(json_data, file)
 
 
     if not calc:
