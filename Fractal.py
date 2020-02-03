@@ -132,9 +132,22 @@ while True:
         elif event.type == pygame.KEYDOWN:
             if event.unicode == "s":
                 json_data = {"x_lim": x_lim, "y_lim": y_lim}
-                print(type(json_data))
                 with open("save.json", "w+") as file:
                     json.dump(json_data, file)
+            elif event.unicode == "l":
+                try:
+                    with open("save.json", "r") as file:
+                        json_data = json.load(file)
+                except Exception:
+                    pass
+                else:
+                    x_lim = json_data["x_lim"]
+                    y_lim = json_data["y_lim"]
+
+                    x_coords = np.linspace(x_lim[0], x_lim[1], width, False)
+                    y_coords = np.linspace(y_lim[0], y_lim[1], height, False)
+
+                    calc = False
 
 
     if not calc:
