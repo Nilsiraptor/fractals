@@ -10,7 +10,7 @@ def f(x):
     return 1/(1+np.exp(-x))
 
 def mandel(x, bound=3, maxiter=100):
-    """Calculate if a given number is in the mandelbrot set"""
+    """Calculates if a given number is in the mandelbrot set"""
     c = 0
     for i in range(maxiter):
         c = c**2 + x
@@ -18,7 +18,7 @@ def mandel(x, bound=3, maxiter=100):
             return i
 
 def julia(x, bound=3, maxiter=100):
-    """Calculate if a given number is in the julia set"""
+    """Calculates if a given number is in the julia set"""
     for i in range(maxiter):
         x = x**2 - 0.6 + 0.4j
         if abs(x) > bound:
@@ -26,9 +26,9 @@ def julia(x, bound=3, maxiter=100):
 
 def reformat(color):
     """Reformat the color from [0, 1] to [0, 255]"""
-    return int (round (color[0] * 255)), \
-           int (round (color[1] * 255)), \
-           int (round (color[2] * 255))
+    return int(round(color[0] * 255)), \
+           int(round(color[1] * 255)), \
+           int(round(color[2] * 255))
 
 def get_color(n, max_n):
     """Get the RGB color ([0, 255]) for a given hue value and maximum brightness/saturation"""
@@ -86,10 +86,15 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+        # get klicked mouse buttons
         elif event.type == pygame.MOUSEBUTTONDOWN:
+            # initiate translation
             if event.button == 1:
                 mouse_pos_old = event.pos
                 mouse_down = True
+
+            # zoom in action
             elif event.button == 4:
                 x_lim = np.array(x_lim)
                 y_lim = np.array(y_lim)
@@ -108,6 +113,8 @@ while True:
                 y_coords = np.linspace(y_lim[0], y_lim[1], height, False)
 
                 calc = False
+
+            # zoom out action
             elif event.button == 5:
                 x_lim = np.array(x_lim)
                 y_lim = np.array(y_lim)
@@ -126,6 +133,8 @@ while True:
                 y_coords = np.linspace(y_lim[0], y_lim[1], height, False)
 
                 calc = False
+
+        # perform translation
         elif event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:
                 mouse_pos_new = event.pos
@@ -141,11 +150,17 @@ while True:
 
                 calc = False
                 mouse_down = False
+
+        # get klicked keys
         elif event.type == pygame.KEYDOWN:
+
+            # perform save
             if event.unicode == "s":
                 json_data = {"x_lim": x_lim, "y_lim": y_lim}
                 with open("save.json", "w+") as file:
                     json.dump(json_data, file)
+
+            # perform load
             elif event.unicode == "l":
                 try:
                     with open("save.json", "r") as file:
@@ -161,11 +176,12 @@ while True:
 
                     calc = False
 
-
+    # push calculated image to the window/surface
     if not calc:
         pixels = calc_pixels(size, x_coords, y_coords)
         pygame.surfarray.blit_array(screen, pixels)
         pygame.image.save(screen, "Julia.PNG")
         calc = True
 
+    # show image on the screen
     pygame.display.update()
