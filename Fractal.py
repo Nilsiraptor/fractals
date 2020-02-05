@@ -176,7 +176,7 @@ while True:
     if not calc:
         pixels = calc_pixels(size, x_coords, y_coords)
         pygame.surfarray.blit_array(screen, pixels)
-        pygame.image.save(screen, "Julia.PNG")
+        pygame.image.save(screen, "Fractal.PNG")
         calc = True
 
     # show image on the screen
