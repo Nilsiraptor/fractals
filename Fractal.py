@@ -53,7 +53,7 @@ pygame.init()
 
 # define window size
 ratio = 3, 2
-base = 250
+base = 100
 size = width, height = ratio[0]*base, ratio[1]*base
 screen = pygame.display.set_mode(size)
 
