@@ -152,7 +152,7 @@ while True:
 
             # perform save
             if event.unicode == "s":
-                json_data = {"x_lim": x_lim, "y_lim": y_lim}
+                json_data = {"x_lim": list(x_lim), "y_lim": list(y_lim)}
                 with open("save.json", "w+") as file:
                     json.dump(json_data, file)
 
