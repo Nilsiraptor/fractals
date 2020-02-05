@@ -42,7 +42,7 @@ def calc_pixels(size, x_coords, y_coords):
             print(str(int(i*100/width)) + "% abgeschlossen!")
     return pixels
 
-# start programm
+# start programm/get fractal coordinates
 try:
     with open("save.json", "r") as file:
         json_data = json.load(file)
@@ -53,6 +53,7 @@ else:
     x_lim = json_data["x_lim"]
     y_lim = json_data["y_lim"]
 
+    # get desired width
     while True:
         width = input("Width: ")
         try:
@@ -62,6 +63,7 @@ else:
         else:
             break
 
+    # get desired height
     while True:
         height = input("Height: ")
         try:
