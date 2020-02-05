@@ -5,10 +5,6 @@ import json
 
 
 # Function definitions
-def f(x):
-    """Sigmoid function"""
-    return 1/(1+np.exp(-x))
-
 def mandel(x, bound=3, maxiter=100):
     """Calculates if a given number is in the mandelbrot set"""
     c = 0
